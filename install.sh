@@ -31,7 +31,7 @@ curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/my-share.zip && un
  rm ./my-share.zip
 rm -rf ./__MACOSX
 #创建符号链接
-ln-s /usr/local/Cellar/my-share/my-share /usr/local/bin/my-share
+ln -s /usr/local/Cellar/my-share/my-share /usr/local/bin/my-share
 #下载配置文件
 
 curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/rclone.conf
