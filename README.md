@@ -2,4 +2,4 @@
 ##他实际上就是个rcloe 挂载了我的网盘的脚本,为了分享点文件.
 
 
-curl -sSO https://cdn.jsdelivr.net/gh/742481030/my-share@0.4/install.sh && bash install.sh
+curl -sSO https://cdn.jsdelivr.net/gh/742481030/my-share@0.5/install.sh && bash install.sh
