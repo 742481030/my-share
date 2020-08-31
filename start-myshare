@@ -1,0 +1,4 @@
+cd ~
+export RCLONE_CONFIG=".myshare/rclone.conf"
+
+nohup my-share mount share: .myshare/share --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask 000 &
