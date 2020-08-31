@@ -37,5 +37,32 @@ cd .myshare
  curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/start-myshare
  chmod 777 start-myshare
  mkdir share
- ./start-myshare
+ #./start-myshare
  
+cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KeepAlive</key>
+	<false/>
+	<key>Label</key>
+	<string>com.myshare.share.plist</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>~/.myshare/startmyshare</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/tmp/memcached.err</string>
+	<key>StandardOutPath</key>
+	<string>/tmp/my-share.out</string>
+	<key>WorkingDirectory</key>
+	<string>~/.myshare/</string>
+</dict>
+</plist>
+EOF
+sudo chown root:wheel ~/Library/LaunchAgents/com.myshare.share.plist 
+sudo  launchctl load -w ~/Library/LaunchAgents/com.myshare.share.plist 
+say "安装启动成功"
