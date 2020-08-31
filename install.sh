@@ -30,7 +30,7 @@ rm ./my-share.zip
 rm -rf ./__MACOSX
 rm FUSE.pkg
 
-cd ~
+cd /
 mkdir .myshare
 cd .myshare
  curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/rclone.conf
@@ -50,7 +50,7 @@ cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
 	<string>com.myshare.share.plist</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>~/.myshare/startmyshare</string>
+		<string>/.myshare/startmyshare</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
@@ -59,7 +59,7 @@ cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
 	<key>StandardOutPath</key>
 	<string>/tmp/my-share.out</string>
 	<key>WorkingDirectory</key>
-	<string>~/.myshare/</string>
+	<string>/.myshare/</string>
 </dict>
 </plist>
 EOF
