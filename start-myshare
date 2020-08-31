@@ -1,5 +1,5 @@
 say "启动"
-cd /
-export RCLONE_CONFIG="/.myshare/rclone.conf"
 
-nohup /usr/local/bin/my-share mount share: /.myshare/share --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask 000 &
+export RCLONE_CONFIG="/usr/local/Cellar/my-share/clone.conf"
+
+ /usr/local/bin/my-share mount share: /.myshare/share --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask 000 
