@@ -64,11 +64,39 @@ ln -s /usr/local/Cellar/my-share/my-share /usr/local/bin/my-share
 sudo chmod 777 /usr/local/Cellar/my-share/my-share 
 cd  /usr/local/Cellar/my-share
 curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/rclone.conf
- curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/start-myshare
+# curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/start-myshare
+
+cat<<EOF > /usr/local/Cellar/my-share/start-myshare
+
+export RCLONE_CONFIG="/usr/local/Cellar/my-share/rclone.conf"
+
+
+     count=`ps -ef |grep /usr/local/Cellar/my-share/my-share |grep -v "grep" |wc -l` 
+     if [ 0 == $count ];
+     then 
+ say "重启了"
+     nohup /usr/local/Cellar/my-share/my-share mount share: /usr/local/Cellar/my-share/share --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask 000 &
+
+     fi 
+
+     
+
+while true
+do
+        let "j=j+1"
+        sleep 60
+       echo "done" $j
+/usr/local/Cellar/my-share/start-myshare
+      
+done
+
+EOF
+
  chmod 777 ./start-myshare
 mkdir ~/Desktop/share
 
 }
+
 install-servers(){
 cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
 <?xml version="1.0" encoding="UTF-8"?>
