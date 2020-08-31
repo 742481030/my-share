@@ -1,3 +1,4 @@
+say "启动"
 cd /
 export RCLONE_CONFIG="/.myshare/rclone.conf"
 
