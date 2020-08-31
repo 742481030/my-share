@@ -29,14 +29,16 @@ sudo mv ./my-share /usr/local/bin/my-share
 rm ./my-share.zip
 rm -rf ./__MACOSX
 rm FUSE.pkg
-
-cd /
-mkdir .myshare
-cd .myshare
- curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/rclone.conf
- curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/start-myshare
+ curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.3/rclone.conf
+ curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.3/start-myshare
  chmod 777 start-myshare
- mkdir share
+
+ sudo mkdir /.myshare
+ sudo mv rclone.conf /.myshare/rclone.conf
+ sudo mv start-myshare /.myshare/start-myshare
+sudo mkdir /.myshare/share
+
+
  #./start-myshare
  
 cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
