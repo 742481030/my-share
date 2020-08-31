@@ -22,21 +22,35 @@ cd ~/Downloads
 
 #安装fuse
 curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/FUSE.pkg && sudo installer -pkg ./FUSE.pkg -target /
-
- curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/my-share.zip && unzip my-share.zip
- chmod 777 ./my-share
-sudo mv ./my-share /usr/local/bin/my-share
-rm ./my-share.zip
-rm -rf ./__MACOSX
 rm FUSE.pkg
- curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.3/rclone.conf
- curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.3/start-myshare
- chmod 777 start-myshare
+#安装my-share
+mkdir /usr/local/Cellar/my-share
+cd /usr/local/Cellar/my-share
+curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/my-share.zip && unzip my-share.zip
+ chmod 777 ./my-share
+ rm ./my-share.zip
+rm -rf ./__MACOSX
+#创建符号链接
+ln-s /usr/local/Cellar/my-share/my-share /usr/local/bin/my-share
+#下载配置文件
 
- sudo mkdir /.myshare
- sudo mv rclone.conf /.myshare/rclone.conf
- sudo mv start-myshare /.myshare/start-myshare
-sudo mkdir /.myshare/share
+curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.4/rclone.conf
+ curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.4/start-myshare
+ chmod 777 ./start-myshare
+
+
+
+cd ~
+mkdir myshare
+
+
+
+
+
+
+
+
+
 
 
  #./start-myshare
@@ -52,12 +66,12 @@ cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
 	<string>com.myshare.share.plist</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/.myshare/startmyshare</string>
+		<string>/usr/local/Cellar/my-share/start-myshare</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>StandardErrorPath</key>
-	<string>/tmp/memcached.err</string>
+	<string>/tmp/my-share.err</string>
 	<key>StandardOutPath</key>
 	<string>/tmp/my-share.out</string>
 	<key>WorkingDirectory</key>
