@@ -34,8 +34,8 @@ rm -rf ./__MACOSX
 ln-s /usr/local/Cellar/my-share/my-share /usr/local/bin/my-share
 #下载配置文件
 
-curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.5/rclone.conf
- curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.5/start-myshare
+curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/rclone.conf
+ curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/start-myshare
  chmod 777 ./start-myshare
 mkdir share
 
@@ -73,7 +73,7 @@ cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
 	<key>StandardOutPath</key>
 	<string>/tmp/my-share.out</string>
 	<key>WorkingDirectory</key>
-	<string>/.myshare/</string>
+	<string>/usr/local/Cellar/my-share/</string>
 </dict>
 </plist>
 EOF
