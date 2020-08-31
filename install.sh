@@ -1,3 +1,5 @@
+
+
 have_sudo_access() {
   if [[ -z "${HAVE_SUDO_ACCESS-}" ]]; then
     /usr/bin/sudo -l mkdir &>/dev/null
@@ -11,48 +13,63 @@ have_sudo_access() {
   return "$HAVE_SUDO_ACCESS"
 }
 echo "输入开机密码已安装myshare"
-say "输输入开机密码已安装myshare"
+
 have_sudo_access
 
+#环境检测
+Cellars="/usr/local/Cellar"
+if [ ! -d "$folder"]; then
+  mkdir "$Cellars"
+  chmod 777 /usr/local/Cellar
+fi
 
 
 
 
-cd ~/Downloads
+have_sudo_access() {
+  if [[ -z "${HAVE_SUDO_ACCESS-}" ]]; then
+    /usr/bin/sudo -l mkdir &>/dev/null
+    HAVE_SUDO_ACCESS="$?"
+  fi
+
+  if [[ "$HAVE_SUDO_ACCESS" -ne 0 ]]; then
+    echo "\033[1;31m开机密码输入错误，获取权限失败!\033[0m"
+  fi
+
+  return "$HAVE_SUDO_ACCESS"
+}
+
+
+
+
+
 
 #安装fuse
+isnsta-fust(){
+cd ~/Downloads
 curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/FUSE.pkg && sudo installer -pkg ./FUSE.pkg -target /
 rm FUSE.pkg
-#安装my-share
-mkdir /usr/local/Cellar/my-share
-cd /usr/local/Cellar/my-share
+echo "安装fuse成功"
+}
+install-my-share(){
+cd ~/Downloads 
 curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/my-share.zip && unzip my-share.zip
- chmod 777 ./my-share
- rm ./my-share.zip
+rm ./my-share.zip
 rm -rf ./__MACOSX
-#创建符号链接
+sudo mkdir  /usr/local/Cellar/my-share
+echo "移动bin文件到目录"
+mv ./my-share  /usr/local/Cellar/my-share/my-share
+echo "创建符号链接"
 ln -s /usr/local/Cellar/my-share/my-share /usr/local/bin/my-share
-#下载配置文件
-
+sudo chmod 777 /usr/local/Cellar/my-share/my-share 
+cd  /usr/local/Cellar/my-share
 curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/rclone.conf
  curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/start-myshare
  chmod 777 ./start-myshare
-mkdir share
+mkdir ~/Desktop/share
 
-
-
-
-
-
-
-
-
-
-
-
-
- #./start-myshare
- 
+}
+install-servers(){
 cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -79,4 +96,20 @@ cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
 EOF
 sudo chown root:wheel ~/Library/LaunchAgents/com.myshare.share.plist 
 sudo  launchctl load -w ~/Library/LaunchAgents/com.myshare.share.plist 
+
+}
+
+
+echo "输入开机密码已安装myshare"
+#判断权限
+have_sudo_access
+#安装fuse
+isnsta-fust
+#安装my-share
+install-my-share
+#安装系统服务
+install-servers
+
+ 
+
 say "安装启动成功"
