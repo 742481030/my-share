@@ -19,7 +19,7 @@ have_sudo_access
 #环境检测
 Cellars="/usr/local/Cellar"
 if [ ! -d "$folder"]; then
-  mkdir "$Cellars"
+ sudo mkdir "$Cellars"
   chmod 777 /usr/local/Cellar
 fi
 
