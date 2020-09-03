@@ -62,21 +62,6 @@ ls
 
 
 
-have_sudo_access() {
-  if [[ -z "${HAVE_SUDO_ACCESS-}" ]]; then
-    /usr/bin/sudo -l mkdir &>/dev/null
-    HAVE_SUDO_ACCESS="$?"
-  fi
-
-  if [[ "$HAVE_SUDO_ACCESS" -ne 0 ]]; then
-    echo "\033[1;31m开机密码输入错误，获取权限失败!\033[0m"
-  fi
-
-  return "$HAVE_SUDO_ACCESS"
-}
-
-
-
 
 
 
