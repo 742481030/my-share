@@ -12,16 +12,52 @@ have_sudo_access() {
 
   return "$HAVE_SUDO_ACCESS"
 }
-echo "输入开机密码已安装myshare"
 
-have_sudo_access
 
-#环境检测
-Cellars="/usr/local/Cellar"
-if [ ! -d "$folder"]; then
- sudo mkdir "$Cellars"
-  chmod 777 /usr/local/Cellar
+
+
+check_file(){
+echo "环境检测"
+if [ ! -d "/usr/local/Cellar" ]; then
+echo  "brew文件夹不存在创建中"
+ sudo mkdir /usr/local/Cellar
+ sudo chmod 777 /usr/local/Cellar
+
+else
+echo  "/usr/local/Cellar文件夹存在"
 fi
+
+if [ ! -d "/usr/local/Cellar/my-share" ]; then
+echo "创建应用目录"
+ sudo mkdir /usr/local/Cellar/my-share
+ sudo chmod 777 /usr/local/Cellar/my-share
+
+else
+echo  "应用存在,卸载中"
+sudo rm -rf  /usr/local/Cellar/my-share
+sudo mkdir /usr/local/Cellar/my-share
+sudo chmod 777 /usr/local/Cellar/my-share
+fi
+
+
+}
+
+
+
+
+downloadres(){
+  cd ~/Downloads
+curl -sSO https://cdn.jsdelivr.net/gh/742481030/my-share@master/FUSE.pkg && echo "下载fuse成功"
+curl -sSO https://cdn.jsdelivr.net/gh/742481030/my-share@master/my-share.zip  && echo "下载myshare成功"
+curl -sSO https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/rclone.conf && echo "下载配置文件成功"
+ls
+
+
+
+
+}
+
+
 
 
 
@@ -47,26 +83,31 @@ have_sudo_access() {
 #安装fuse
 isnsta-fust(){
 cd ~/Downloads
-curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/FUSE.pkg && sudo installer -pkg ./FUSE.pkg -target /
+sudo installer -pkg ./FUSE.pkg -target /
 rm FUSE.pkg
 echo "安装fuse成功"
 }
+
 install-my-share(){
 cd ~/Downloads 
-curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@master/my-share.zip && unzip my-share.zip
+ unzip my-share.zip
+
 rm ./my-share.zip
 rm -rf ./__MACOSX
-sudo mkdir  /usr/local/Cellar/my-share
-echo "移动bin文件到目录"
-mv ./my-share  /usr/local/Cellar/my-share/my-share
-echo "创建符号链接"
-ln -s /usr/local/Cellar/my-share/my-share /usr/local/bin/my-share
-sudo chmod 777 /usr/local/Cellar/my-share/my-share 
-cd  /usr/local/Cellar/my-share
-curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/rclone.conf
-# curl -O https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/start-myshare
 
-cat<<EOF > /usr/local/Cellar/my-share/start-myshare
+
+
+
+ 
+echo "移动bin文件到目录"
+ sudo mv ~/Downloads/my-share  /usr/local/Cellar/my-share/my-share
+sudo mv ~/Downloads/rclone.conf  /usr/local/Cellar/my-share/rclone.conf
+echo "创建符号链接"
+sudo  ln -s /usr/local/Cellar/my-share/my-share /usr/local/bin/my-share
+sudo   ln -s /usr/local/Cellar/my-share/share  ~/Dwsktop/share
+cd  /usr/local/Cellar/my-share
+
+sudo cat<<'EOF' > /usr/local/Cellar/my-share/start-myshare
 
 export RCLONE_CONFIG="/usr/local/Cellar/my-share/rclone.conf"
 
@@ -98,7 +139,7 @@ mkdir ~/Desktop/share
 }
 
 install-servers(){
-cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
+sudo cat<<EOF >~/Library/LaunchAgents/com.myshare.share.plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -131,6 +172,10 @@ sudo  launchctl load -w ~/Library/LaunchAgents/com.myshare.share.plist
 echo "输入开机密码已安装myshare"
 #判断权限
 have_sudo_access
+#校验环境
+check_file
+#下载文件
+downloadres
 #安装fuse
 isnsta-fust
 #安装my-share
@@ -140,4 +185,4 @@ install-servers
 
  
 
-say "安装启动成功"
+say "安装启动成功,访达设置桌面显示链接的服务器就可以查看"
