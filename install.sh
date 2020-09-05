@@ -100,7 +100,7 @@ export RCLONE_CONFIG="/usr/local/Cellar/my-share/rclone.conf"
      count=`ps -ef |grep /usr/local/Cellar/my-share/my-share |grep -v "grep" |wc -l` 
      if [ 0 == $count ];
      then 
- say "重启了"
+
      nohup /usr/local/Cellar/my-share/my-share mount share: /usr/local/Cellar/my-share/share --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask 000 &
 
      fi 
