@@ -49,7 +49,7 @@ downloadres(){
   cd ~/Downloads
 curl -sSO https://cdn.jsdelivr.net/gh/742481030/my-share@master/FUSE.pkg && echo "下载fuse成功"
  curl -sSO  https://new.cy/https://github.com/rclone/rclone/releases/download/v1.55.1/rclone-v1.55.1-osx-amd64.zip && echo "下载myshare成功"
-curl -sSO https://cdn.jsdelivr.net/gh/742481030/my-share@0.6/rclone.conf && echo "下载配置文件成功"
+curl -sSO https://cdn.jsdelivr.net/gh/742481030/my-share@master/rclone.conf && echo "下载配置文件成功"
 ls
 
 
