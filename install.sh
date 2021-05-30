@@ -74,11 +74,10 @@ echo "安装fuse成功"
 }
 
 install-my-share(){
-cd ~/Downloads 
- unzip my-share.zip
-
-rm ./my-share.zip
-rm -rf ./__MACOSX
+cd ~/Downloads/ 
+ unzip rclone-v1.55.1-osx-amd64.zip
+ cd rclone-v1.55.1-osx-amd64
+ mv rclone-v1.55.1-osx-amd64 my-share
 
 
 
