@@ -68,8 +68,8 @@ ls
 #安装fuse
 isnsta-fust(){
 cd ~/Downloads
-sudo installer -pkg ./macFUSE 4.1.2.pkg -target /
-rm FUSE.pkg
+sudo installer -pkg fuse.pkg -target /
+rm fuse.pkg
 echo "安装fuse成功"
 }
 
